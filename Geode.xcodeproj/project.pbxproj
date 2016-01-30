@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CDA3F821C5C755300912DDD /* GeoLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3F811C5C755300912DDD /* GeoLocator.swift */; };
 		3CE4BA101C5C6F1000BABEC8 /* Geode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CE4BA0F1C5C6F1000BABEC8 /* Geode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3CE4BA171C5C6F1100BABEC8 /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE4BA0C1C5C6F1000BABEC8 /* Geode.framework */; };
-		3CE4BA1C1C5C6F1100BABEC8 /* GeodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4BA1B1C5C6F1100BABEC8 /* GeodeTests.swift */; };
+		3CE4BA1C1C5C6F1100BABEC8 /* OneShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4BA1B1C5C6F1100BABEC8 /* OneShotTests.swift */; };
 		3CE4BA291C5C723B00BABEC8 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE4BA281C5C723B00BABEC8 /* Nimble.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,11 +25,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3CDA3F811C5C755300912DDD /* GeoLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocator.swift; sourceTree = "<group>"; };
 		3CE4BA0C1C5C6F1000BABEC8 /* Geode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Geode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE4BA0F1C5C6F1000BABEC8 /* Geode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geode.h; sourceTree = "<group>"; };
 		3CE4BA111C5C6F1000BABEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CE4BA161C5C6F1100BABEC8 /* GeodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CE4BA1B1C5C6F1100BABEC8 /* GeodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeodeTests.swift; sourceTree = "<group>"; };
+		3CE4BA1B1C5C6F1100BABEC8 /* OneShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneShotTests.swift; sourceTree = "<group>"; };
 		3CE4BA1D1C5C6F1100BABEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CE4BA281C5C723B00BABEC8 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +77,7 @@
 		3CE4BA0E1C5C6F1000BABEC8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3CDA3F811C5C755300912DDD /* GeoLocator.swift */,
 				3CE4BA0F1C5C6F1000BABEC8 /* Geode.h */,
 				3CE4BA111C5C6F1000BABEC8 /* Info.plist */,
 			);
@@ -84,8 +87,8 @@
 		3CE4BA1A1C5C6F1100BABEC8 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				3CE4BA1B1C5C6F1100BABEC8 /* GeodeTests.swift */,
 				3CE4BA1D1C5C6F1100BABEC8 /* Info.plist */,
+				3CE4BA1B1C5C6F1100BABEC8 /* OneShotTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CDA3F821C5C755300912DDD /* GeoLocator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CE4BA1C1C5C6F1100BABEC8 /* GeodeTests.swift in Sources */,
+				3CE4BA1C1C5C6F1100BABEC8 /* OneShotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +342,7 @@
 		3CE4BA211C5C6F1100BABEC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -349,12 +354,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.Geode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3CE4BA221C5C6F1100BABEC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

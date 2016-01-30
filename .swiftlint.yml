@@ -4,6 +4,7 @@ disabled_rules:
   - nesting
   - statement_position
   - type_body_length
+  - type_name
   - variable_name
   - variable_name_max_length
   - variable_name_min_length
