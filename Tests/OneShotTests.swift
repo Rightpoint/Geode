@@ -1,5 +1,5 @@
 //
-//  GeodeTests.swift
+//  OneShotTests.swift
 //  GeodeTests
 //
 //  Created by John Watson on 1/15/16.
@@ -31,17 +31,16 @@ import Geode
 import XCTest
 
 
-final class GeodeTests: XCTestCase {
+final class OneShotTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-    }
+    func testIsOneShot() {
+        // Given
 
-    override func tearDown() {
-        super.tearDown()
-    }
+        // When
+        let locator = GeoLocator(mode: .OneShot)
 
-    func testExample() {
+        // Then
+        XCTAssert(locator.mode == .OneShot, "Expected a one-shot locator!")
     }
 
 }
