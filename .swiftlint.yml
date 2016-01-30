@@ -1,0 +1,12 @@
+disabled_rules:
+  - function_body_length
+  - line_length
+  - nesting
+  - statement_position
+  - type_body_length
+  - variable_name
+  - variable_name_max_length
+  - variable_name_min_length
+
+excluded:
+  - Carthage
