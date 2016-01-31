@@ -36,8 +36,8 @@ final class OneShotViewController: UIViewController {
 
     private var locator = Geode.GeoLocator(mode: .OneShot)
     private var stackView = UIStackView()
-    private var mapView = MKMapView()
     private var navBarExtension = UIView()
+    private var mapView = MKMapView()
 
     override func loadView() {
         edgesForExtendedLayout = .None
@@ -48,6 +48,8 @@ final class OneShotViewController: UIViewController {
         stackView.axis = .Vertical
         stackView.alignment = .Fill
         stackView.distribution = .EqualSpacing
+
+        mapView.delegate = self
 
         view.addSubview(stackView)
         stackView.addArrangedSubview(navBarExtension)
@@ -63,6 +65,15 @@ final class OneShotViewController: UIViewController {
             target: self,
             action: "refreshAction"
         )
+
+        debugPrint(GeoLocator.authorizationStatus)
+        locator.manager.requestWhenInUseAuthorization()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        refreshLocation()
     }
 
 }
@@ -75,6 +86,28 @@ extension OneShotViewController {
      Refresh the user's current location.
      */
     func refreshAction() {
+        refreshLocation()
+    }
+
+}
+
+// MARK: - Map View Delegate
+
+extension OneShotViewController: MKMapViewDelegate {
+
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseIdentifier = "com.raizlabs.Geode.Example.annotation-id"
+
+        var annotationView: MKAnnotationView?
+
+        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier) {
+            annotationView.annotation = annotation
+        }
+        else {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        }
+
+        return annotationView
     }
 
 }
@@ -85,10 +118,8 @@ private extension OneShotViewController {
 
     func configureConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.topAnchor).active = true
-        stackView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.topAnchor).active = true
-        stackView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor).active = true
-        stackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor).active = true
+        stackView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+        stackView.heightAnchor.constraintEqualToAnchor(view.heightAnchor).active = true
 
         navBarExtension.translatesAutoresizingMaskIntoConstraints = false
         navBarExtension.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
@@ -97,6 +128,22 @@ private extension OneShotViewController {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.topAnchor.constraintEqualToAnchor(navBarExtension.bottomAnchor).active = true
         mapView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+    }
+
+    func refreshLocation() {
+        locator.requestLocationUpdate { [weak self] location in
+            if let location = location {
+                self?.mapView.setRegion(MKCoordinateRegionMakeWithDistance(location.coordinate, 1000.0, 1000.0), animated: true)
+                self?.addAnnotation(forLocation: location)
+            }
+        }
+    }
+
+    func addAnnotation(forLocation location: CLLocation) {
+        mapView.removeAnnotations(mapView.annotations)
+
+        let annotation = LocationAnnotation(location: location)
+        mapView.addAnnotation(annotation)
     }
 
 }
