@@ -72,7 +72,8 @@ final class OneShotViewController: UIViewController {
             action: "refreshAction"
         )
 
-        debugPrint(GeoLocator.authorizationStatus)
+        // Accept all location values.
+        locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
     }
 
