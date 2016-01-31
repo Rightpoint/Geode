@@ -46,16 +46,21 @@ final class NavBarExtension: UIView {
     private let latLabel = UILabel()
 
     init() {
-        hairline.backgroundColor = UIColor.blackColor()
+        hairline.backgroundColor = UIColor(named: .Black)
 
         stackView.axis = .Horizontal
         stackView.alignment = .Fill
         stackView.distribution = .FillEqually
 
+        lonLabel.textColor = UIColor(named: .White)
         lonLabel.textAlignment = .Center
+
+        latLabel.textColor = UIColor(named: .White)
         latLabel.textAlignment = .Center
 
         super.init(frame: CGRect.zero)
+
+        backgroundColor = UIColor(named: .Purple)
 
         addSubview(hairline)
         addSubview(stackView)

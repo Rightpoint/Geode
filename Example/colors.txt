@@ -1,0 +1,3 @@
+Black : #000000ff
+Purple: #a162a1ff
+White : #ffffffff

@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  Appearance.swift
 //  Example
 //
-//  Created by John Watson on 1/27/16.
+//  Created by John Watson on 1/31/16.
 //
 //  Copyright © 2016 Raizlabs. All rights reserved.
 //  http://raizlabs.com
@@ -30,21 +30,36 @@
 import UIKit
 
 
-@UIApplicationMain
-final class AppDelegate: UIResponder, UIApplicationDelegate {
+/// Configure the appearance behavior for views.
+final class Appearance {
 
-    var window: UIWindow?
+    class func configureDefaultAppearance() {
+        configureNavBarAppearance()
+    }
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        Appearance.configureDefaultAppearance()
+    class func configureNavBarAppearance() {
+        let appearance = UINavigationBar.appearance()
+        appearance.tintColor = UIColor(named: .White)
+        appearance.barTintColor = UIColor(named: .Purple)
+        appearance.backgroundColor = UIColor(named: .Purple)
+        appearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(named: .White)]
+    }
 
-        let rootWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
-        rootWindow.rootViewController = AppearanceNavigationController(rootViewController: RootViewController())
-        rootWindow.backgroundColor = UIColor.whiteColor()
-        rootWindow.makeKeyAndVisible()
-        window = rootWindow
+}
 
-        return true
+
+/// `UINavigationController` subclass that sets the default appearance for
+/// the navigation and status bars.
+final class AppearanceNavigationController: UINavigationController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        navigationBar.translucent = false
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 
 }

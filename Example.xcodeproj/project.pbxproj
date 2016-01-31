@@ -15,6 +15,8 @@
 		3CDA3FA91C5C890C00912DDD /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDA3FA81C5C890C00912DDD /* Geode.framework */; };
 		3CDA3FAF1C5DB6D400912DDD /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */; };
 		3CDA3FB21C5DBCC500912DDD /* NavBarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */; };
+		3CDA3FB51C5DD7E200912DDD /* UIColor+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FB41C5DD7E200912DDD /* UIColor+Appearance.swift */; };
+		3CDA3FB71C5DD8A900912DDD /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FB61C5DD8A900912DDD /* Appearance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		3CDA3FAD1C5DB55B00912DDD /* RZWest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RZWest.gpx; sourceTree = "<group>"; };
 		3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
 		3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarExtension.swift; sourceTree = "<group>"; };
+		3CDA3FB41C5DD7E200912DDD /* UIColor+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Appearance.swift"; sourceTree = "<group>"; };
+		3CDA3FB61C5DD8A900912DDD /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			children = (
 				3CDA3FA21C5C85EB00912DDD /* Application */,
 				3CDA3FB01C5DB85900912DDD /* Common */,
+				3CDA3FB31C5DD7AB00912DDD /* Extensions */,
 				3CDA3FA11C5C85CD00912DDD /* Resources */,
 				3CDA3FA31C5C86F200912DDD /* View Controllers */,
 			);
@@ -87,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */,
+				3CDA3FB61C5DD8A900912DDD /* Appearance.swift */,
 				3CDA3F9B1C5C855C00912DDD /* Info.plist */,
 			);
 			path = Application;
@@ -116,6 +122,14 @@
 				3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		3CDA3FB31C5DD7AB00912DDD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3CDA3FB41C5DD7E200912DDD /* UIColor+Appearance.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,8 +203,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CDA3F901C5C855C00912DDD /* AppDelegate.swift in Sources */,
+				3CDA3FB51C5DD7E200912DDD /* UIColor+Appearance.swift in Sources */,
 				3CDA3FA61C5C870800912DDD /* OneShotViewController.swift in Sources */,
 				3CDA3FA71C5C870800912DDD /* RootViewController.swift in Sources */,
+				3CDA3FB71C5DD8A900912DDD /* Appearance.swift in Sources */,
 				3CDA3FAF1C5DB6D400912DDD /* LocationAnnotation.swift in Sources */,
 				3CDA3FB21C5DBCC500912DDD /* NavBarExtension.swift in Sources */,
 			);
