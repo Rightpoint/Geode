@@ -14,6 +14,7 @@
 		3CDA3FA71C5C870800912DDD /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FA51C5C870800912DDD /* RootViewController.swift */; };
 		3CDA3FA91C5C890C00912DDD /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDA3FA81C5C890C00912DDD /* Geode.framework */; };
 		3CDA3FAF1C5DB6D400912DDD /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */; };
+		3CDA3FB21C5DBCC500912DDD /* NavBarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3CDA3FAC1C5DB41200912DDD /* RZEast.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RZEast.gpx; sourceTree = "<group>"; };
 		3CDA3FAD1C5DB55B00912DDD /* RZWest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RZWest.gpx; sourceTree = "<group>"; };
 		3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */,
+				3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				3CDA3FA61C5C870800912DDD /* OneShotViewController.swift in Sources */,
 				3CDA3FA71C5C870800912DDD /* RootViewController.swift in Sources */,
 				3CDA3FAF1C5DB6D400912DDD /* LocationAnnotation.swift in Sources */,
+				3CDA3FB21C5DBCC500912DDD /* NavBarExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

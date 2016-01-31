@@ -36,7 +36,7 @@ final class OneShotViewController: UIViewController {
 
     private var locator = Geode.GeoLocator(mode: .OneShot)
     private var stackView = UIStackView()
-    private var navBarExtension = UIView()
+    private var navBarExtension = NavBarExtension()
     private var mapView = MKMapView()
 
     override func loadView() {
@@ -59,6 +59,12 @@ final class OneShotViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        // Hide the nav bar's hairline so that the extension view appears flush
+        // beneath it.
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+
         navigationItem.title = "One-Shot"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .Refresh,
@@ -117,14 +123,19 @@ extension OneShotViewController: MKMapViewDelegate {
 private extension OneShotViewController {
 
     func configureConstraints() {
+        // The stack view fills the width and height of the view.
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
         stackView.heightAnchor.constraintEqualToAnchor(view.heightAnchor).active = true
 
+        // The nav bar extension fills the width of the stack view and has a
+        // fixed height.
         navBarExtension.translatesAutoresizingMaskIntoConstraints = false
         navBarExtension.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
         navBarExtension.heightAnchor.constraintEqualToConstant(44.0).active = true
 
+        // The map view fills the width of the stack view and the remainder
+        // of its height.
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.topAnchor.constraintEqualToAnchor(navBarExtension.bottomAnchor).active = true
         mapView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
@@ -134,6 +145,7 @@ private extension OneShotViewController {
         locator.requestLocationUpdate { [weak self] location in
             if let location = location {
                 self?.mapView.setRegion(MKCoordinateRegionMakeWithDistance(location.coordinate, 1000.0, 1000.0), animated: true)
+                self?.navBarExtension.coordinate = location.coordinate
                 self?.addAnnotation(forLocation: location)
             }
         }
