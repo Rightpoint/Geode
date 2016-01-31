@@ -1,8 +1,9 @@
-PROJECT         = "Geode.xcodeproj"
-WORKSPACE       = "Geode.xcworkspace"
-SCHEME          = "Geode"
 DESTINATION     = "platform=iOS Simulator,name=iPhone 6s Plus"
+EXAMPLE         = "Example.xcodeproj"
+PROJECT         = "Geode.xcodeproj"
+SCHEME          = "Geode"
 SDK             = "iphonesimulator9.2"
+WORKSPACE       = "Geode.xcworkspace"
 
 #
 # Clean
@@ -35,6 +36,7 @@ end
 
 task :sync do
   sh("synx #{PROJECT}") rescue nil
+  sh("synx #{EXAMPLE}") rescue nil
 end
 
 #

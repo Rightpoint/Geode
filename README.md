@@ -1,5 +1,5 @@
 # Geode
-[![Build Status](https://travis-ci.org/raizlabs/geode.svg)](https://travis-ci.org/raizlabs/geode)
+[![Build Status](https://travis-ci.org/Raizlabs/Geode.svg)](https://travis-ci.org/Raizlabs/Geode)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Geode.svg)](https://github.com/CocoaPods/CocoaPods)
 
