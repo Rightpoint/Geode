@@ -1,3 +1,5 @@
+COLORS_IN       = "Example/colors.txt"
+COLORS_OUT      = "Example/Extensions/UIColor+Appearance.swift"
 DESTINATION     = "platform=iOS Simulator,name=iPhone 6s Plus"
 EXAMPLE         = "Example.xcodeproj"
 PROJECT         = "Geode.xcodeproj"
@@ -40,6 +42,14 @@ task :sync do
 end
 
 #
+# Colors
+#
+
+task :colors do
+  sh("swiftgen colors #{COLORS_IN} -o #{COLORS_OUT}")
+end
+
+#
 # Utils
 #
 
@@ -48,6 +58,8 @@ task :usage do
   puts "  rake build    - build for simulator"
   puts "  rake test     - build for simulator and run tests"
   puts "  rake clean    - clean project build artifacts"
+  puts "  rake sync     - synchronize directory structure with project files"
+  puts "  rake colors   - generate example project color definitions with SwiftGen"
   puts "  rake usage    - print this message"
 end
 

@@ -1,0 +1,5 @@
+Black    : #000000ff
+Blue     : #057cffff
+LightBlue: #2a7cffff
+Purple   : #a162a1ff
+White    : #ffffffff

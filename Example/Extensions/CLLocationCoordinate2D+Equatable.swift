@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  CLLocationCoordinate2D+Equatable.swift
 //  Example
 //
-//  Created by John Watson on 1/27/16.
+//  Created by John Watson on 1/31/16.
 //
 //  Copyright © 2016 Raizlabs. All rights reserved.
 //  http://raizlabs.com
@@ -27,24 +27,12 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-import UIKit
+import CoreLocation
 
 
-@UIApplicationMain
-final class AppDelegate: UIResponder, UIApplicationDelegate {
+extension CLLocationCoordinate2D: Equatable {}
 
-    var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        Appearance.configureDefaultAppearance()
-
-        let rootWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
-        rootWindow.rootViewController = AppearanceNavigationController(rootViewController: RootViewController())
-        rootWindow.backgroundColor = UIColor.whiteColor()
-        rootWindow.makeKeyAndVisible()
-        window = rootWindow
-
-        return true
-    }
-
+public func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
 }

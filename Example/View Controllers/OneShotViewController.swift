@@ -75,6 +75,8 @@ final class OneShotViewController: UIViewController {
         // Accept all location values.
         locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
+
+        mapView.showsUserLocation = true
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -103,15 +105,13 @@ extension OneShotViewController {
 extension OneShotViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseIdentifier = "com.raizlabs.Geode.Example.annotation-id"
-
         var annotationView: MKAnnotationView?
 
-        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier) {
+        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(LocationAnnotationView.reuseIdentifier) {
             annotationView.annotation = annotation
         }
         else {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView = LocationAnnotationView(annotation: annotation, reuseIdentifier: LocationAnnotationView.reuseIdentifier)
         }
 
         return annotationView
@@ -143,12 +143,21 @@ private extension OneShotViewController {
     }
 
     func refreshLocation() {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        spinner.startAnimating()
+
+        let refreshItem = navigationItem.rightBarButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
+
         locator.requestLocationUpdate { [weak self] location in
             if let location = location {
                 self?.mapView.setRegion(MKCoordinateRegionMakeWithDistance(location.coordinate, 1000.0, 1000.0), animated: true)
                 self?.navBarExtension.coordinate = location.coordinate
                 self?.addAnnotation(forLocation: location)
             }
+
+            spinner.stopAnimating()
+            self?.navigationItem.rightBarButtonItem = refreshItem
         }
     }
 
