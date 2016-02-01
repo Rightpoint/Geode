@@ -18,6 +18,12 @@ extension UIColor {
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#000000"></span>
     /// Alpha: 100% <br/> (0x000000ff)
     case Black
+    /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#057cff"></span>
+    /// Alpha: 100% <br/> (0x057cffff)
+    case Blue
+    /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#2a7cff"></span>
+    /// Alpha: 100% <br/> (0x2a7cffff)
+    case LightBlue
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#a162a1"></span>
     /// Alpha: 100% <br/> (0xa162a1ff)
     case Purple
@@ -28,6 +34,8 @@ extension UIColor {
     var rgbaValue: UInt32! {
       switch self {
       case .Black: return 0x000000ff
+      case .Blue: return 0x057cffff
+      case .LightBlue: return 0x2a7cffff
       case .Purple: return 0xa162a1ff
       case .White: return 0xffffffff
       }

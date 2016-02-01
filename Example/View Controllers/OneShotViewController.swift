@@ -75,6 +75,8 @@ final class OneShotViewController: UIViewController {
         // Accept all location values.
         locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
+
+        mapView.showsUserLocation = true
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -103,15 +105,13 @@ extension OneShotViewController {
 extension OneShotViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseIdentifier = "com.raizlabs.Geode.Example.annotation-id"
-
         var annotationView: MKAnnotationView?
 
-        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier) {
+        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(LocationAnnotationView.reuseIdentifier) {
             annotationView.annotation = annotation
         }
         else {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView = LocationAnnotationView(annotation: annotation, reuseIdentifier: LocationAnnotationView.reuseIdentifier)
         }
 
         return annotationView
