@@ -75,8 +75,6 @@ final class OneShotViewController: UIViewController {
         // Accept all location values.
         locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
-
-        mapView.showsUserLocation = true
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -150,13 +148,16 @@ private extension OneShotViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
 
         locator.requestLocationUpdate { [weak self] location in
-            if let location = location {
+            if location.coordinate == kCLLocationCoordinate2DInvalid {
+                self?.mapView.removeAnnotations(self?.mapView.annotations ?? [])
+            }
+            else {
                 self?.mapView.setRegion(MKCoordinateRegionMakeWithDistance(location.coordinate, 1000.0, 1000.0), animated: true)
-                self?.navBarExtension.coordinate = location.coordinate
                 self?.addAnnotation(forLocation: location)
             }
 
             spinner.stopAnimating()
+            self?.navBarExtension.coordinate = location.coordinate
             self?.navigationItem.rightBarButtonItem = refreshItem
         }
     }

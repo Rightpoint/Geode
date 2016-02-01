@@ -36,7 +36,7 @@ import Foundation
 public class GeoLocator: NSObject {
 
     /// A closure that is called with the device's most recent location.
-    public typealias LocationUpdateHandler = (CLLocation?) -> Void
+    public typealias LocationUpdateHandler = (CLLocation) -> Void
 
     /**
      The `GeoLocator`'s mode of operation.
@@ -92,6 +92,7 @@ public class GeoLocator: NSObject {
     public var maxLocationAge = NSTimeInterval(15.0)
 
     private var updateHandler: LocationUpdateHandler?
+    private var active = false
 
     /**
      Initialize a `GeoLocator` instance with the given monitoring mode.
@@ -129,6 +130,9 @@ extension GeoLocator {
             updateHandler = handler
             manager.requestLocation()
         }
+        else {
+            handler?(location)
+        }
     }
 
     /**
@@ -141,6 +145,7 @@ extension GeoLocator {
         if GeoLocator.authorizationStatus == .Yes && mode == .Continuous {
             updateHandler = handler
             manager.startUpdatingLocation()
+            active = true
         }
     }
 
@@ -151,6 +156,7 @@ extension GeoLocator {
         if GeoLocator.authorizationStatus == .Yes && mode == .Continuous {
             manager.stopUpdatingLocation()
             updateHandler = nil
+            active = false
         }
     }
 
@@ -205,15 +211,30 @@ extension GeoLocator: CLLocationManagerDelegate {
     // MARK: Responding to Authorization Changes
 
     public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        debugPrint("[Geode] VERBOSE \(__FILE__) L\(__LINE__): authorization status changed to \(status)")
+
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
-            break
+            if active {
+                switch mode {
+                case .OneShot:
+                    requestLocationUpdate(updateHandler)
 
-        case .Restricted:
-            break
+                case .Continuous:
+                    startMonitoring(updateHandler)
+                }
+            }
 
-        case .Denied:
-            break
+        case .Restricted,
+             .Denied:
+            if mode == .Continuous {
+                stopMonitoring()
+            }
+
+            location = CLLocation(
+                latitude: kCLLocationCoordinate2DInvalid.latitude,
+                longitude: kCLLocationCoordinate2DInvalid.longitude
+            )
 
         case .NotDetermined:
             break
