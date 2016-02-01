@@ -143,12 +143,21 @@ private extension OneShotViewController {
     }
 
     func refreshLocation() {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        spinner.startAnimating()
+
+        let refreshItem = navigationItem.rightBarButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
+
         locator.requestLocationUpdate { [weak self] location in
             if let location = location {
                 self?.mapView.setRegion(MKCoordinateRegionMakeWithDistance(location.coordinate, 1000.0, 1000.0), animated: true)
                 self?.navBarExtension.coordinate = location.coordinate
                 self?.addAnnotation(forLocation: location)
             }
+
+            spinner.stopAnimating()
+            self?.navigationItem.rightBarButtonItem = refreshItem
         }
     }
 

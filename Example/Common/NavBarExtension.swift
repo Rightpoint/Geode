@@ -35,8 +35,17 @@ final class NavBarExtension: UIView {
 
     var coordinate = kCLLocationCoordinate2DInvalid {
         didSet {
-            lonLabel.text = String(format: "Lon: %.5f", arguments: [coordinate.longitude])
-            latLabel.text = String(format: "Lat: %.5f", arguments: [coordinate.latitude])
+            if coordinate == kCLLocationCoordinate2DInvalid {
+                stackView.hidden = true
+                noLocationLabel.hidden = false
+            }
+            else {
+                lonLabel.text = String(format: "Lon: %.5f", coordinate.longitude)
+                latLabel.text = String(format: "Lat: %.5f", coordinate.latitude)
+
+                stackView.hidden = false
+                noLocationLabel.hidden = true
+            }
         }
     }
 
@@ -44,6 +53,7 @@ final class NavBarExtension: UIView {
     private let stackView = UIStackView()
     private let lonLabel = UILabel()
     private let latLabel = UILabel()
+    private let noLocationLabel = UILabel()
 
     init() {
         hairline.backgroundColor = UIColor(named: .Black)
@@ -58,12 +68,18 @@ final class NavBarExtension: UIView {
         latLabel.textColor = UIColor(named: .White)
         latLabel.textAlignment = .Center
 
+        noLocationLabel.text = "Location not available"
+        noLocationLabel.textColor = UIColor(named: .White)
+        noLocationLabel.textAlignment = .Center
+
         super.init(frame: CGRect.zero)
 
         backgroundColor = UIColor(named: .Purple)
 
         addSubview(hairline)
         addSubview(stackView)
+        addSubview(noLocationLabel)
+
         stackView.addArrangedSubview(lonLabel)
         stackView.addArrangedSubview(latLabel)
 
@@ -102,6 +118,12 @@ private extension NavBarExtension {
         // The latitude label is pinned to the right of the stack view.
         latLabel.translatesAutoresizingMaskIntoConstraints = false
         latLabel.rightAnchor.constraintEqualToAnchor(stackView.rightAnchor).active = true
+
+        // The no location label fills the view, in the same position as the
+        // stack view.
+        noLocationLabel.translatesAutoresizingMaskIntoConstraints = false
+        noLocationLabel.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
+        noLocationLabel.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
     }
 
 }
