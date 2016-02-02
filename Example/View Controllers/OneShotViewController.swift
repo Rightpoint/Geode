@@ -42,6 +42,10 @@ final class OneShotViewController: UIViewController {
     override func loadView() {
         edgesForExtendedLayout = .None
 
+        locator.logHandler = { message, level, file, line in
+            debugPrint("[Geode] \(String(level).uppercaseString) \(file) L\(line): \(message())")
+        }
+
         view = UIView(frame: UIScreen.mainScreen().bounds)
         view.backgroundColor = UIColor.whiteColor()
 

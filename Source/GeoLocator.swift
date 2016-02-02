@@ -38,6 +38,9 @@ public class GeoLocator: NSObject {
     /// A closure that is called with the device's most recent location.
     public typealias LocationUpdateHandler = (CLLocation) -> Void
 
+    /// A closure that logs messages.
+    public typealias LogHandler = (message: () -> String, level: LogLevel, file: StaticString, line: UInt) -> Void
+
     /**
      The `GeoLocator`'s mode of operation.
 
@@ -60,6 +63,23 @@ public class GeoLocator: NSObject {
         case Unknown
         case Yes
         case No
+    }
+
+    /**
+     Log levels used by the `GeoLocator`.
+
+     - Error:   Error-level, possibly unrecoverable messages
+     - Warning: Important messages
+     - Info:    Informative messages
+     - Debug:   Debug messages
+     - Verbose: Everything
+     */
+    public enum LogLevel: Int {
+        case Error
+        case Warning
+        case Info
+        case Debug
+        case Verbose
     }
 
     /// Return the application's authorization status for location services.
@@ -90,6 +110,9 @@ public class GeoLocator: NSObject {
     /// The maximum age (in seconds) a location update may be before it is
     /// discarded. Defaults to 15 seconds.
     public var maxLocationAge = NSTimeInterval(15.0)
+
+    /// Handler used to log framework messages.
+    public var logHandler: LogHandler?
 
     private var updateHandler: LocationUpdateHandler?
     private var active = false
@@ -176,7 +199,7 @@ extension GeoLocator: CLLocationManagerDelegate {
 
         let locationAge = abs(newLocation.timestamp.timeIntervalSinceNow)
         if locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
-            debugPrint("[Geode] INFO \(__FILE__) L\(__LINE__): ignoring old location")
+            log({ "ignoring old location" }, level: .Info)
             return
         }
 
@@ -196,10 +219,10 @@ extension GeoLocator: CLLocationManagerDelegate {
         if let code = CLError(rawValue: error.code) where error.domain == kCLErrorDomain {
             switch code {
             case .LocationUnknown:
-                debugPrint("[Geode] ERROR \(__FILE__) L\(__LINE__): Unknown location")
+                log({"Unknown location"}, level: .Error)
 
             case .Denied:
-                debugPrint("[Geode] ERROR \(__FILE__) L\(__LINE__): User has denied location access")
+                log({"User has denied location access"}, level: .Error)
                 stopMonitoring()
 
             default:
@@ -211,7 +234,7 @@ extension GeoLocator: CLLocationManagerDelegate {
     // MARK: Responding to Authorization Changes
 
     public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        debugPrint("[Geode] VERBOSE \(__FILE__) L\(__LINE__): authorization status changed to \(status)")
+        log({ "authorization status changed to \(status)"}, level: .Verbose)
 
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
@@ -239,6 +262,14 @@ extension GeoLocator: CLLocationManagerDelegate {
         case .NotDetermined:
             break
         }
+    }
+
+}
+
+private extension GeoLocator {
+
+    func log(message: () -> String, level: LogLevel, file: StaticString = __FILE__, line: UInt = __LINE__) {
+        logHandler?(message: message, level: level, file: file, line: line)
     }
 
 }
