@@ -80,13 +80,15 @@ extension LocationViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKAnnotationView?
 
-        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(LocationAnnotationView.reuseIdentifier) {
-            annotationView.annotation = annotation
+        if let view = mapView.dequeueReusableAnnotationViewWithIdentifier(LocationAnnotationView.reuseIdentifier) {
+            view.annotation = annotation
+            annotationView = view
         }
         else {
             annotationView = LocationAnnotationView(annotation: annotation, reuseIdentifier: LocationAnnotationView.reuseIdentifier)
         }
 
+        assert(annotationView != nil)
         return annotationView
     }
 
