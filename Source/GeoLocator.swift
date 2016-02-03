@@ -197,6 +197,8 @@ extension GeoLocator: CLLocationManagerDelegate {
             return
         }
 
+        log({ "location updated: \(newLocation.coordinate)" }, level: .Verbose)
+
         let locationAge = abs(newLocation.timestamp.timeIntervalSinceNow)
         if locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
             log({ "ignoring old location" }, level: .Info)

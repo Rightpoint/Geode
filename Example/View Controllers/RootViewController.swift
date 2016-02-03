@@ -40,6 +40,7 @@ final class RootViewController: UITableViewController {
     private let reuseIdentifier = "com.raizlabs.geode.view-controller-cell"
     private let rows = [
         Row(title: "One-shot Location Monitoring", viewController: OneShotViewController.self),
+        Row(title: "Continuous Location Monitoring", viewController: ContinuousViewontroller.self),
     ]
 
     override func viewDidLoad() {

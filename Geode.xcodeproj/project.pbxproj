@@ -57,18 +57,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3CE12E431C600C560021A7BA /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				3CE12E441C600C6C0021A7BA /* CLAuthorizationStatus+Extensions.swift */,
-			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
 		3CE4BA021C5C6F1000BABEC8 = {
 			isa = PBXGroup;
 			children = (
-				3CE12E431C600C560021A7BA /* Extensions */,
 				3CE4BA2A1C5C724100BABEC8 /* Frameworks */,
 				3CE4BA0D1C5C6F1000BABEC8 /* Products */,
 				3CE4BA0E1C5C6F1000BABEC8 /* Source */,
@@ -88,6 +79,7 @@
 		3CE4BA0E1C5C6F1000BABEC8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3CE12E441C600C6C0021A7BA /* CLAuthorizationStatus+Extensions.swift */,
 				3CDA3F811C5C755300912DDD /* GeoLocator.swift */,
 				3CE4BA0F1C5C6F1000BABEC8 /* Geode.h */,
 				3CE4BA111C5C6F1000BABEC8 /* Info.plist */,

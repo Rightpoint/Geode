@@ -34,6 +34,11 @@ import UIKit
 
 class LocationViewController: UIViewController {
 
+    /// Simple log handler that subclasses can use with their `GeoLocator` instance.
+    static let logHandler: Geode.GeoLocator.LogHandler = { message, level, file, line in
+        debugPrint("[GEODE] \(String(level).uppercaseString) \(file) L\(line): \(message())")
+    }
+
     let navBarExtension = NavBarExtension()
     let mapView = MKMapView()
 
@@ -113,7 +118,7 @@ extension LocationViewController {
     func addAnnotation(forLocation location: CLLocation) {
         mapView.removeAnnotations(mapView.annotations)
 
-        let annotation = LocationAnnotation(location: location)
+        let annotation = LocationAnnotation(coordinate: location.coordinate)
         mapView.addAnnotation(annotation)
     }
 

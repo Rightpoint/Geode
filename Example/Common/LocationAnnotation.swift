@@ -31,20 +31,20 @@ import MapKit
 
 
 /// A `LocationAnnotation` represents the device's current location.
-final class LocationAnnotation: NSObject {
-
-    private let location: CLLocation
-
-    init(location: CLLocation) {
-        self.location = location
-    }
-
-}
-
-extension LocationAnnotation: MKAnnotation {
+final class LocationAnnotation: NSObject, MKAnnotation {
 
     var coordinate: CLLocationCoordinate2D {
-        return location.coordinate
+        willSet {
+            willChangeValueForKey("coordinate")
+        }
+
+        didSet {
+            didChangeValueForKey("coordinate")
+        }
+    }
+
+    init(coordinate: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid) {
+        self.coordinate = coordinate
     }
 
 }

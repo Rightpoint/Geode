@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C76634A1C61A22100F7B273 /* ContinuousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7663491C61A22100F7B273 /* ContinuousViewController.swift */; };
 		3CDA3F901C5C855C00912DDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */; };
 		3CDA3F971C5C855C00912DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CDA3F961C5C855C00912DDD /* Assets.xcassets */; };
 		3CDA3F9A1C5C855C00912DDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CDA3F981C5C855C00912DDD /* LaunchScreen.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C7663491C61A22100F7B273 /* ContinuousViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousViewController.swift; sourceTree = "<group>"; };
 		3CDA3F8C1C5C855C00912DDD /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CDA3F961C5C855C00912DDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		3CDA3FA31C5C86F200912DDD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3C7663491C61A22100F7B273 /* ContinuousViewController.swift */,
 				3CDA3FA41C5C870800912DDD /* LocationViewController.swift */,
 				3CDD72001C60558600D23C99 /* OneShotViewController.swift */,
 				3CDA3FA51C5C870800912DDD /* RootViewController.swift */,
@@ -135,8 +138,8 @@
 		3CDA3FB31C5DD7AB00912DDD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3CDA3FB41C5DD7E200912DDD /* UIColor+Appearance.swift */,
 				3CE12E411C5F10840021A7BA /* CLLocationCoordinate2D+Equatable.swift */,
+				3CDA3FB41C5DD7E200912DDD /* UIColor+Appearance.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				3CDA3FB71C5DD8A900912DDD /* Appearance.swift in Sources */,
 				3CDA3FAF1C5DB6D400912DDD /* LocationAnnotation.swift in Sources */,
 				3CE12E3F1C5EAF4A0021A7BA /* LocationAnnotationView.swift in Sources */,
+				3C76634A1C61A22100F7B273 /* ContinuousViewController.swift in Sources */,
 				3CDA3FB21C5DBCC500912DDD /* NavBarExtension.swift in Sources */,
 				3CDD72011C60558600D23C99 /* OneShotViewController.swift in Sources */,
 			);

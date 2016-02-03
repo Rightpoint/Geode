@@ -28,6 +28,7 @@ final class OneShotViewController: LocationViewController {
         // Accept all location values.
         locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
+        locator.logHandler = self.dynamicType.logHandler
     }
 
     override func viewWillAppear(animated: Bool) {
