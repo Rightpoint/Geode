@@ -36,6 +36,7 @@ final class ContinuousViewontroller: LocationViewController {
 
     private var locator = Geode.GeoLocator(mode: .Continuous)
     private var annotation = LocationAnnotation()
+    private var lastCoordinate = kCLLocationCoordinate2DInvalid
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +58,18 @@ final class ContinuousViewontroller: LocationViewController {
 private extension ContinuousViewontroller {
 
     func updateLocation(location: CLLocation) {
-        if annotation.coordinate == location.coordinate {
+        // If the updated coordinate is the same as the previous one, avoid
+        // further processing.
+        if location.coordinate == lastCoordinate {
             return
         }
+
+        // Save the previous coordinate.
+        lastCoordinate = annotation.coordinate
+
+        // Update the annotation and nav bar with the latest coordinate.
+        annotation.coordinate = location.coordinate
+        navBarExtension.coordinate = location.coordinate
 
         if annotation.coordinate.isInvalid {
             mapView.removeAnnotation(annotation)
@@ -68,11 +78,8 @@ private extension ContinuousViewontroller {
             mapView.addAnnotation(annotation)
             assert(mapView.annotations.count == 1, "Too many annotations present!")
 
-            mapView.setRegion(MKCoordinateRegionMakeWithDistance(location.coordinate, 1000.0, 1000.0), animated: true)
+            mapView.setRegion(MKCoordinateRegionMakeWithDistance(annotation.coordinate, 1000.0, 1000.0), animated: true)
         }
-
-        annotation.coordinate = location.coordinate
-        navBarExtension.coordinate = location.coordinate
     }
 
 }
