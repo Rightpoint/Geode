@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3C76634A1C61A22100F7B273 /* ContinuousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7663491C61A22100F7B273 /* ContinuousViewController.swift */; };
+		3C7663531C631D0400F7B273 /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7663521C631D0400F7B273 /* Geode.framework */; };
+		3C7663541C631D0400F7B273 /* Geode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7663521C631D0400F7B273 /* Geode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CDA3F901C5C855C00912DDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */; };
 		3CDA3F971C5C855C00912DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CDA3F961C5C855C00912DDD /* Assets.xcassets */; };
 		3CDA3F9A1C5C855C00912DDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CDA3F981C5C855C00912DDD /* LaunchScreen.storyboard */; };
 		3CDA3FA61C5C870800912DDD /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FA41C5C870800912DDD /* LocationViewController.swift */; };
 		3CDA3FA71C5C870800912DDD /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FA51C5C870800912DDD /* RootViewController.swift */; };
-		3CDA3FA91C5C890C00912DDD /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDA3FA81C5C890C00912DDD /* Geode.framework */; };
 		3CDA3FAF1C5DB6D400912DDD /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */; };
 		3CDA3FB21C5DBCC500912DDD /* NavBarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FB11C5DBCC500912DDD /* NavBarExtension.swift */; };
 		3CDA3FB51C5DD7E200912DDD /* UIColor+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3FB41C5DD7E200912DDD /* UIColor+Appearance.swift */; };
@@ -23,8 +24,23 @@
 		3CE12E421C5F10840021A7BA /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE12E411C5F10840021A7BA /* CLLocationCoordinate2D+Equatable.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3C7663551C631D0400F7B273 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3C7663541C631D0400F7B273 /* Geode.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3C7663491C61A22100F7B273 /* ContinuousViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousViewController.swift; sourceTree = "<group>"; };
+		3C7663521C631D0400F7B273 /* Geode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Geode.framework; path = "/Users/jwatson/Library/Developer/Xcode/DerivedData/Geode-fwwtaixodjessvaqwuidxnoanmrm/Build/Products/Debug-iphoneos/Geode.framework"; sourceTree = "<absolute>"; };
 		3CDA3F8C1C5C855C00912DDD /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CDA3F961C5C855C00912DDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,7 +48,6 @@
 		3CDA3F9B1C5C855C00912DDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CDA3FA41C5C870800912DDD /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		3CDA3FA51C5C870800912DDD /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		3CDA3FA81C5C890C00912DDD /* Geode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Geode.framework; path = "build/Debug-iphoneos/Geode.framework"; sourceTree = "<group>"; };
 		3CDA3FAC1C5DB41200912DDD /* RZEast.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RZEast.gpx; sourceTree = "<group>"; };
 		3CDA3FAD1C5DB55B00912DDD /* RZWest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RZWest.gpx; sourceTree = "<group>"; };
 		3CDA3FAE1C5DB6D400912DDD /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
@@ -49,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CDA3FA91C5C890C00912DDD /* Geode.framework in Frameworks */,
+				3C7663531C631D0400F7B273 /* Geode.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +135,7 @@
 		3CDA3FAA1C5C892A00912DDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3CDA3FA81C5C890C00912DDD /* Geode.framework */,
+				3C7663521C631D0400F7B273 /* Geode.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,6 +169,7 @@
 				3CDA3F881C5C855C00912DDD /* Sources */,
 				3CDA3F891C5C855C00912DDD /* Frameworks */,
 				3CDA3F8A1C5C855C00912DDD /* Resources */,
+				3C7663551C631D0400F7B273 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
