@@ -51,3 +51,57 @@ Then, run the following command:
 ```sh
 $ pod install
 ```
+
+## Usage
+
+### One-shot Location Access
+
+iOS 9 introduced the ability to request the one-time delivery of the user's
+current location. This approach does not keep location services running
+longer than what is necessary to obtain a location fix. One common use case
+is to tie a location update to an action so that the user can refresh their
+location as needed:
+
+```swift
+import Geode
+
+let locator = Geode.GeoLocator(.OneShot)
+
+@IBAction func updateLocationAction() {
+    locator.requestLocationUpdate { location in
+        debugPrint("Current location: \(location)")
+    }
+}
+
+```
+
+### Continuous Location Access
+
+Continuous location access (the only method available prior to iOS 9)
+supplies location updates to your application as the user's position changes.
+This approach will provide you with the most current location data at the
+expense of increased battery usage.
+
+You might, for example, tie location monitoring to a view controller's
+lifecycle:
+
+```swift
+import Geode
+
+let locator = Geode.GeoLocator(.Continuous)
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    locator.startMonitoring { location in
+        debugPrint("Current location: \(location)")
+    }
+}
+
+override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated: animated)
+
+    locator.stopMonitoring()
+}
+
+```
