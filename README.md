@@ -105,3 +105,32 @@ override func viewWillDisappear(animated: Bool) {
 }
 
 ```
+
+### Logging
+
+One of the most effective ways to debug location services is to log from your
+`CLLocationManagerDelegate`. Geode's implementation is instrumented with
+numerous log statements, all of which delegate to a `logHandler` callback that
+is `nil` by default. This allows for easy integration with existing logging
+frameworks (e.g. [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)).
+
+```swift
+public typealias LogHandler = (message: () -> String, level: LogLevel, file: StaticString, line: UInt) -> Void
+```
+
+The `message` parameter is passed as a closure, which allows us to potentially
+avoid any unnecessary string processing if the log level is not set high enough.
+A simple logging implementation might look like the following:
+
+```swift
+locator.logHandler = { message, level, file, line in
+    debugPrint("[GEODE] \(String(level).uppercaseString) \(file) L\(line): \(message())")
+}
+```
+
+## Maintainers
+- [John Watson](https://github.com/jwatson) ([@johnnystyle](https://twitter.com/johnnystyle))
+
+## License
+
+Geode is released under the MIT license. See LICENSE for details.
