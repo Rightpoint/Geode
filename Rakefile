@@ -3,7 +3,8 @@ COLORS_OUT      = "Example/Extensions/UIColor+Appearance.swift"
 DESTINATION     = "platform=iOS Simulator,name=iPhone 6s Plus"
 EXAMPLE         = "Example.xcodeproj"
 PROJECT         = "Geode.xcodeproj"
-SCHEME          = "Geode"
+FRAMEWORK_SCHEME  = "Geode"
+EXAMPLE_SCHEME    = "Example"
 SDK             = "iphonesimulator9.2"
 WORKSPACE       = "Geode.xcworkspace"
 
@@ -12,8 +13,9 @@ WORKSPACE       = "Geode.xcworkspace"
 #
 
 task :clean do
-  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Release ONLY_ACTIVE_ARCH=NO clean | xcpretty") rescue nil
-  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{TEST_SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Release ONLY_ACTIVE_ARCH=NO clean | xcpretty") rescue nil
+  # Cleaning the example also cleans the framework (for the Debug configuration).
+  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{FRAMEWORK_SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Release ONLY_ACTIVE_ARCH=NO clean | xcpretty") rescue nil
+  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{EXAMPLE_SCHEME}'   -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Debug   ONLY_ACTIVE_ARCH=NO clean | xcpretty") rescue nil
 end
 
 #
@@ -21,7 +23,7 @@ end
 #
 
 task :build => :clean do
-  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty") rescue nil
+  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{FRAMEWORK_SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty")
 end
 
 #
@@ -29,7 +31,8 @@ end
 #
 
 task :test => :clean do
-  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Debug ONLY_ACTIVE_ARCH=NO build test | xcpretty") rescue nil
+  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{FRAMEWORK_SCHEME}' -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Debug ONLY_ACTIVE_ARCH=NO build test | xcpretty")
+  sh("xcodebuild -workspace '#{WORKSPACE}' -scheme '#{EXAMPLE_SCHEME}'   -sdk '#{SDK}' -destination '#{DESTINATION}' -configuration Debug ONLY_ACTIVE_ARCH=NO build      | xcpretty")
 end
 
 #
