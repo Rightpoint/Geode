@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C76634A1C61A22100F7B273 /* ContinuousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7663491C61A22100F7B273 /* ContinuousViewController.swift */; };
-		3C7663531C631D0400F7B273 /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7663521C631D0400F7B273 /* Geode.framework */; };
-		3C7663541C631D0400F7B273 /* Geode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7663521C631D0400F7B273 /* Geode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3C76635C1C63EC1800F7B273 /* Geode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C76635B1C63EC1800F7B273 /* Geode.framework */; };
 		3CDA3F901C5C855C00912DDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */; };
 		3CDA3F971C5C855C00912DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CDA3F961C5C855C00912DDD /* Assets.xcassets */; };
 		3CDA3F9A1C5C855C00912DDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CDA3F981C5C855C00912DDD /* LaunchScreen.storyboard */; };
@@ -24,23 +23,9 @@
 		3CE12E421C5F10840021A7BA /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE12E411C5F10840021A7BA /* CLLocationCoordinate2D+Equatable.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		3C7663551C631D0400F7B273 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				3C7663541C631D0400F7B273 /* Geode.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		3C7663491C61A22100F7B273 /* ContinuousViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousViewController.swift; sourceTree = "<group>"; };
-		3C7663521C631D0400F7B273 /* Geode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Geode.framework; path = "/Users/jwatson/Library/Developer/Xcode/DerivedData/Geode-fwwtaixodjessvaqwuidxnoanmrm/Build/Products/Debug-iphoneos/Geode.framework"; sourceTree = "<absolute>"; };
+		3C76635B1C63EC1800F7B273 /* Geode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Geode.framework; path = "build/Debug-iphoneos/Geode.framework"; sourceTree = "<group>"; };
 		3CDA3F8C1C5C855C00912DDD /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CDA3F8F1C5C855C00912DDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CDA3F961C5C855C00912DDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C7663531C631D0400F7B273 /* Geode.framework in Frameworks */,
+				3C76635C1C63EC1800F7B273 /* Geode.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +120,7 @@
 		3CDA3FAA1C5C892A00912DDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3C7663521C631D0400F7B273 /* Geode.framework */,
+				3C76635B1C63EC1800F7B273 /* Geode.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -169,7 +154,6 @@
 				3CDA3F881C5C855C00912DDD /* Sources */,
 				3CDA3F891C5C855C00912DDD /* Frameworks */,
 				3CDA3F8A1C5C855C00912DDD /* Resources */,
-				3C7663551C631D0400F7B273 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -344,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/build/Debug-iphoneos";
 				INFOPLIST_FILE = Example/Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -356,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/build/Debug-iphoneos";
 				INFOPLIST_FILE = Example/Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
