@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.platform            = :ios, "9.0"
   s.source              = { :git => "https://github.com/Raizlabs/Geode.git", :tag => "v#{s.version}" }
-  s.source_files        = "Source/**/{*.{h,swift}}"
+  s.source_files        = "Source/**/*.{h,swift}"
   s.requires_arc        = true
 
   s.frameworks          = "CoreLocation"
