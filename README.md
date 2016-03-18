@@ -133,4 +133,4 @@ locator.logHandler = { message, level, file, line in
 
 ## License
 
-Geode is released under the MIT license. See LICENSE for details.
+Geode is released under the MIT license. See [LICENSE](LICENSE) for details.
