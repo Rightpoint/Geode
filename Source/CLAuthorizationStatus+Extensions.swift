@@ -32,6 +32,7 @@ import CoreLocation
 
 extension CLAuthorizationStatus: CustomStringConvertible {
 
+    /// A textual representation of `self`.
     public var description: String {
         switch self {
         case .AuthorizedAlways:
