@@ -270,7 +270,7 @@ extension GeoLocator: CLLocationManagerDelegate {
 
 private extension GeoLocator {
 
-    func log(message: () -> String, level: LogLevel, file: StaticString = __FILE__, line: UInt = __LINE__) {
+    func log(message: () -> String, level: LogLevel, file: StaticString = #file, line: UInt = #line) {
         logHandler?(message: message, level: level, file: file, line: line)
     }
 

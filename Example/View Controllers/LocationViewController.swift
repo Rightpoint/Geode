@@ -42,23 +42,16 @@ class LocationViewController: UIViewController {
     let navBarExtension = NavBarExtension()
     let mapView = MKMapView()
 
-    private let stackView = UIStackView()
-
     override func loadView() {
         edgesForExtendedLayout = .None
 
         view = UIView(frame: UIScreen.mainScreen().bounds)
         view.backgroundColor = UIColor.whiteColor()
 
-        stackView.axis = .Vertical
-        stackView.alignment = .Fill
-        stackView.distribution = .EqualSpacing
-
         mapView.delegate = self
 
-        view.addSubview(stackView)
-        stackView.addArrangedSubview(navBarExtension)
-        stackView.addArrangedSubview(mapView)
+        view.addSubview(navBarExtension)
+        view.addSubview(mapView)
 
         configureConstraints()
     }
@@ -99,22 +92,17 @@ extension LocationViewController: MKMapViewDelegate {
 extension LocationViewController {
 
     func configureConstraints() {
-        // The stack view fills the width and height of the view.
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
-        stackView.heightAnchor.constraintEqualToAnchor(view.heightAnchor).active = true
-
-        // The nav bar extension fills the width of the stack view and has a
-        // fixed height.
+        // The nav bar extension fills the width of the view and has a fixed height.
         navBarExtension.translatesAutoresizingMaskIntoConstraints = false
-        navBarExtension.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        navBarExtension.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+        navBarExtension.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
         navBarExtension.heightAnchor.constraintEqualToConstant(44.0).active = true
 
-        // The map view fills the width of the stack view and the remainder
-        // of its height.
+        // The map view fills the width of the view and the remainder of its height.
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.topAnchor.constraintEqualToAnchor(navBarExtension.bottomAnchor).active = true
-        mapView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        mapView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+        mapView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
     }
 
     func addAnnotation(forLocation location: CLLocation) {

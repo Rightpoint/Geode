@@ -22,7 +22,7 @@ final class OneShotViewController: LocationViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .Refresh,
             target: self,
-            action: "refreshAction"
+            action: #selector(OneShotViewController.refreshAction)
         )
 
         // Accept all location values.
