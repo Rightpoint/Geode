@@ -5,6 +5,13 @@
 
 Location management made easy.
 
+## Swift Compatibility
+
+Geode is available for both Swift 2.3 and 3.0. The `master` branch is Swift
+3.0-only, and will not receive any 2.x compatibility changes. The `swift-2.3`
+branch exists for projects that must use Swift 2. This branch is frozen at
+version `0.1.3`, and will not receive further updates.
+
 ## Installation with Carthage
 
 Carthage is a decentralized dependency manager that automates the process of
@@ -40,7 +47,7 @@ To integrate Geode into your Xcode project using CocoaPods, specify it in
 your `Podfile`:
 
 ```ruby
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
 pod 'Geode'
@@ -65,7 +72,7 @@ location as needed:
 ```swift
 import Geode
 
-let locator = Geode.GeoLocator(.OneShot)
+let locator = Geode.GeoLocator(.oneShot)
 
 @IBAction func updateLocationAction() {
     locator.requestLocationUpdate { location in
@@ -88,7 +95,7 @@ lifecycle:
 ```swift
 import Geode
 
-let locator = Geode.GeoLocator(.Continuous)
+let locator = Geode.GeoLocator(.continuous)
 
 override func viewDidLoad() {
     super.viewDidLoad()
@@ -115,7 +122,7 @@ is `nil` by default. This allows for easy integration with existing logging
 frameworks (e.g. [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)).
 
 ```swift
-public typealias LogHandler = (message: () -> String, level: LogLevel, file: StaticString, line: UInt) -> Void
+public typealias LogHandler = (_ message: () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) -> Void
 ```
 
 The `message` parameter is passed as a closure, which allows us to potentially
@@ -124,7 +131,7 @@ A simple logging implementation might look like the following:
 
 ```swift
 locator.logHandler = { message, level, file, line in
-    debugPrint("[GEODE] \(String(level).uppercaseString) \(file) L\(line): \(message())")
+    debugPrint("[GEODE] \(String(describing: level).uppercased()) \(file) L\(line): \(message())")
 }
 ```
 
