@@ -35,9 +35,9 @@ final class LocationAnnotationView: MKAnnotationView {
 
     static let reuseIdentifier = "com.raizlabs.Geode.Example.location-annotation-view"
 
-    private let blueCircle = CAShapeLayer()
+    fileprivate let blueCircle = CAShapeLayer()
 
-    override class func layerClass() -> AnyClass {
+    override class var layerClass: AnyClass {
         return CAShapeLayer.self
     }
 
@@ -72,15 +72,15 @@ private extension LocationAnnotationView {
             fatalError("View's backing layer is not a CAShapeLayer!")
         }
 
-        shapeLayer.path = UIBezierPath(ovalInRect: bounds).CGPath
-        shapeLayer.fillColor = UIColor.whiteColor().CGColor
-        shapeLayer.shadowColor = UIColor(named: .Black).CGColor
+        shapeLayer.path = UIBezierPath(ovalIn: bounds).cgPath
+        shapeLayer.fillColor = UIColor.white.cgColor
+        shapeLayer.shadowColor = UIColor(named: .black).cgColor
         shapeLayer.shadowOpacity = 0.3
         shapeLayer.shadowRadius = 5.0
         shapeLayer.shadowOffset = CGSize(width: 0.0, height: 0.0)
 
-        blueCircle.path = UIBezierPath(ovalInRect: LayoutConstants.blueCircleFrame).CGPath
-        blueCircle.fillColor = UIColor(named: .Blue).CGColor
+        blueCircle.path = UIBezierPath(ovalIn: LayoutConstants.blueCircleFrame).cgPath
+        blueCircle.fillColor = UIColor(named: .blue).cgColor
     }
 
     func attachAnimations() {
@@ -91,19 +91,19 @@ private extension LocationAnnotationView {
     func attachPathAnimation() {
         let animation = animationWithKeyPath("path")
         let rect = LayoutConstants.blueCircleFrame.insetBy(dx: LayoutConstants.blueCirclePulseInset, dy: LayoutConstants.blueCirclePulseInset)
-        animation.toValue = UIBezierPath(ovalInRect: rect).CGPath
+        animation.toValue = UIBezierPath(ovalIn: rect).cgPath
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 
-        blueCircle.addAnimation(animation, forKey: animation.keyPath)
+        blueCircle.add(animation, forKey: animation.keyPath)
     }
 
     func attachColorAnimation() {
         let animation = animationWithKeyPath("fillColor")
-        animation.toValue = UIColor(named: .LightBlue)
-        blueCircle.addAnimation(animation, forKey: animation.keyPath)
+        animation.toValue = UIColor(named: .lightBlue)
+        blueCircle.add(animation, forKey: animation.keyPath)
     }
 
-    func animationWithKeyPath(keyPath: String) -> CABasicAnimation {
+    func animationWithKeyPath(_ keyPath: String) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: keyPath)
         animation.autoreverses = true
         animation.repeatCount = HUGE

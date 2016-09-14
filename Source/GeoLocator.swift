@@ -33,13 +33,13 @@ import Foundation
 
 /// A `GeoLocator` manages access to a `CLLocationManager` instance and acts as
 /// its delegate.
-public class GeoLocator: NSObject {
+open class GeoLocator: NSObject {
 
     /// A closure that is called with the device's most recent location.
     public typealias LocationUpdateHandler = (CLLocation) -> Void
 
     /// A closure that logs messages.
-    public typealias LogHandler = (message: () -> String, level: LogLevel, file: StaticString, line: UInt) -> Void
+    public typealias LogHandler = (_ message: () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) -> Void
 
     /**
      The `GeoLocator`'s mode of operation.
@@ -48,8 +48,8 @@ public class GeoLocator: NSObject {
      - Continuous: Continuously monitor the device's location.
      */
     public enum MonitoringMode {
-        case OneShot
-        case Continuous
+        case oneShot
+        case continuous
     }
 
     /**
@@ -60,9 +60,9 @@ public class GeoLocator: NSObject {
      - No:      The user has denied access to their location.
      */
     public enum AuthorizationStatus {
-        case Unknown
-        case Yes
-        case No
+        case unknown
+        case yes
+        case no
     }
 
     /**
@@ -75,53 +75,53 @@ public class GeoLocator: NSObject {
      - Verbose: Everything
      */
     public enum LogLevel: Int {
-        case Error
-        case Warning
-        case Info
-        case Debug
-        case Verbose
+        case error
+        case warning
+        case info
+        case debug
+        case verbose
     }
 
     /// Return the application's authorization status for location services.
-    public class var authorizationStatus: AuthorizationStatus {
+    open class var authorizationStatus: AuthorizationStatus {
         let status = CLLocationManager.authorizationStatus()
         switch status {
-        case .AuthorizedWhenInUse, .AuthorizedAlways:
-            return .Yes
+        case .authorizedWhenInUse, .authorizedAlways:
+            return .yes
 
-        case .Denied, .Restricted:
-            return .No
+        case .denied, .restricted:
+            return .no
 
-        case .NotDetermined:
-            return .Unknown
+        case .notDetermined:
+            return .unknown
         }
     }
 
     /// The location manager instance. Use this to customize location
     /// monitoring behavior.
-    public let manager = CLLocationManager()
+    open let manager = CLLocationManager()
 
     /// The `GeoLocator`'s monitoring mode.
-    public let mode: MonitoringMode
+    open let mode: MonitoringMode
 
     /// The device's location from the most recent update.
-    public private(set) var location: CLLocation
+    open fileprivate(set) var location: CLLocation
 
     /// The maximum age (in seconds) a location update may be before it is
     /// discarded. Defaults to 15 seconds.
-    public var maxLocationAge = NSTimeInterval(15.0)
+    open var maxLocationAge = TimeInterval(15.0)
 
     /// Handler used to log framework messages.
-    public var logHandler: LogHandler?
+    open var logHandler: LogHandler?
 
     /// Whether or not the `GeoLocator` is currently active.
-    public var isActive: Bool {
+    open var isActive: Bool {
         return active
     }
 
-    private var updateHandler: LocationUpdateHandler?
-    private var active = false
-    private var waitingForAuthorization = false
+    fileprivate var updateHandler: LocationUpdateHandler?
+    fileprivate var active = false
+    fileprivate var waitingForAuthorization = false
 
     /**
      Initialize a `GeoLocator` instance with the given monitoring mode.
@@ -154,14 +154,14 @@ extension GeoLocator {
      - parameter handler: A closure that will be executed when the device's
                           location is updated.
      */
-    public func requestLocationUpdate(handler: LocationUpdateHandler?) {
-        guard mode == .OneShot else {
+    public func requestLocationUpdate(_ handler: LocationUpdateHandler?) {
+        guard mode == .oneShot else {
             handler?(location)
             return
         }
 
         let status = CLLocationManager.authorizationStatus()
-        guard status != .Restricted && status != .Denied else {
+        guard status != .restricted && status != .denied else {
             handler?(location)
             return
         }
@@ -172,7 +172,7 @@ extension GeoLocator {
 
         updateHandler = handler
 
-        if GeoLocator.authorizationStatus == .Yes {
+        if GeoLocator.authorizationStatus == .yes {
             active = true
             manager.requestLocation()
         }
@@ -188,14 +188,14 @@ extension GeoLocator {
      - parameter handler: A closure that will be executed every time the
                           device's location updates.
      */
-    public func startMonitoring(handler: LocationUpdateHandler?) {
-        guard mode == .Continuous else {
+    public func startMonitoring(_ handler: LocationUpdateHandler?) {
+        guard mode == .continuous else {
             handler?(location)
             return
         }
 
         let status = CLLocationManager.authorizationStatus()
-        guard status != .Restricted && status != .Denied else {
+        guard status != .restricted && status != .denied else {
             handler?(location)
             return
         }
@@ -206,7 +206,7 @@ extension GeoLocator {
 
         updateHandler = handler
 
-        if GeoLocator.authorizationStatus == .Yes {
+        if GeoLocator.authorizationStatus == .yes {
             active = true
             manager.startUpdatingLocation()
         }
@@ -221,7 +221,7 @@ extension GeoLocator {
      Stop continously monitoring the device's location.
      */
     public func stopMonitoring() {
-        if GeoLocator.authorizationStatus == .Yes && mode == .Continuous {
+        if GeoLocator.authorizationStatus == .yes && mode == .continuous {
             manager.stopUpdatingLocation()
             updateHandler = nil
             active = false
@@ -236,41 +236,41 @@ extension GeoLocator: CLLocationManagerDelegate {
 
     // MARK: Responding to Location Events
 
-    public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else {
             assertionFailure("Must have at least one valid location!")
             return
         }
 
-        log({ "location updated: \(newLocation.coordinate)" }, level: .Verbose)
+        log({ "location updated: \(newLocation.coordinate)" }, level: .verbose)
 
         let locationAge = abs(newLocation.timestamp.timeIntervalSinceNow)
-        if mode == .Continuous && locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
-            log({ "ignoring old location" }, level: .Info)
+        if mode == .continuous && locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
+            log({ "ignoring old location" }, level: .info)
             return
         }
 
         location = newLocation
 
         switch mode {
-        case .OneShot:
+        case .oneShot:
             updateHandler?(location)
             active = false
             updateHandler = nil
 
-        case .Continuous:
+        case .continuous:
             updateHandler?(location)
         }
     }
 
-    public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        if let code = CLError(rawValue: error.code) where error.domain == kCLErrorDomain {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if let code = CLError.Code(rawValue: error._code), error._domain == kCLErrorDomain {
             switch code {
-            case .LocationUnknown:
-                log({"Unknown location"}, level: .Error)
+            case .locationUnknown:
+                log({"Unknown location"}, level: .error)
 
-            case .Denied:
-                log({"User has denied location access"}, level: .Error)
+            case .denied:
+                log({"User has denied location access"}, level: .error)
                 stopMonitoring()
 
             default:
@@ -278,7 +278,7 @@ extension GeoLocator: CLLocationManagerDelegate {
             }
         }
 
-        if mode == .OneShot {
+        if mode == .oneShot {
             updateHandler?(location)
             updateHandler = nil
             active = false
@@ -287,25 +287,25 @@ extension GeoLocator: CLLocationManagerDelegate {
 
     // MARK: Responding to Authorization Changes
 
-    public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        log({ "authorization status changed to \(status)"}, level: .Verbose)
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        log({ "authorization status changed to \(status)"}, level: .verbose)
 
         switch status {
-        case .AuthorizedAlways, .AuthorizedWhenInUse:
+        case .authorizedAlways, .authorizedWhenInUse:
             if waitingForAuthorization {
                 waitingForAuthorization = false
                 switch mode {
-                case .OneShot:
+                case .oneShot:
                     requestLocationUpdate(updateHandler)
 
-                case .Continuous:
+                case .continuous:
                     startMonitoring(updateHandler)
                 }
             }
 
-        case .Restricted,
-             .Denied:
-            if mode == .Continuous {
+        case .restricted,
+             .denied:
+            if mode == .continuous {
                 stopMonitoring()
             }
 
@@ -320,7 +320,7 @@ extension GeoLocator: CLLocationManagerDelegate {
                 updateHandler?(location)
             }
 
-        case .NotDetermined:
+        case .notDetermined:
             break
         }
     }
@@ -329,8 +329,8 @@ extension GeoLocator: CLLocationManagerDelegate {
 
 private extension GeoLocator {
 
-    func log(message: () -> String, level: LogLevel, file: StaticString = #file, line: UInt = #line) {
-        logHandler?(message: message, level: level, file: file, line: line)
+    func log(_ message: () -> String, level: LogLevel, file: StaticString = #file, line: UInt = #line) {
+        logHandler?(message, level, file, line)
     }
 
 }

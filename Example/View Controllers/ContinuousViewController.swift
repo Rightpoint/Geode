@@ -34,9 +34,9 @@ import UIKit
 
 final class ContinuousViewontroller: LocationViewController {
 
-    private var locator = Geode.GeoLocator(mode: .Continuous)
-    private var annotation = LocationAnnotation()
-    private var lastCoordinate = kCLLocationCoordinate2DInvalid
+    fileprivate var locator = Geode.GeoLocator(mode: .continuous)
+    fileprivate var annotation = LocationAnnotation()
+    fileprivate var lastCoordinate = kCLLocationCoordinate2DInvalid
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ final class ContinuousViewontroller: LocationViewController {
         // Accept all location values.
         locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
-        locator.logHandler = self.dynamicType.logHandler
+        locator.logHandler = type(of: self).logHandler
 
         locator.startMonitoring { [weak self] location in
             self?.updateLocation(location)
@@ -57,7 +57,7 @@ final class ContinuousViewontroller: LocationViewController {
 
 private extension ContinuousViewontroller {
 
-    func updateLocation(location: CLLocation) {
+    func updateLocation(_ location: CLLocation) {
         // If the updated coordinate is the same as the previous one, avoid
         // further processing.
         if location.coordinate == lastCoordinate {

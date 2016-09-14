@@ -32,13 +32,13 @@ import UIKit
 
 final class RootViewController: UITableViewController {
 
-    private struct Row {
+    fileprivate struct Row {
         let title: String
         let viewController: UIViewController.Type
     }
 
-    private let reuseIdentifier = "com.raizlabs.geode.view-controller-cell"
-    private let rows = [
+    fileprivate let reuseIdentifier = "com.raizlabs.geode.view-controller-cell"
+    fileprivate let rows = [
         Row(title: "One-shot Location Monitoring", viewController: OneShotViewController.self),
         Row(title: "Continuous Location Monitoring", viewController: ContinuousViewontroller.self),
     ]
@@ -49,7 +49,7 @@ final class RootViewController: UITableViewController {
         navigationItem.title = "Geode"
 
         tableView.tableFooterView = UIView()
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
 
 }
@@ -58,17 +58,17 @@ final class RootViewController: UITableViewController {
 
 extension RootViewController {
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let row = rows[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) ?? UITableViewCell()
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = rows[(indexPath as NSIndexPath).row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) ?? UITableViewCell()
         cell.textLabel?.text = row.title
 
         return cell
@@ -80,8 +80,8 @@ extension RootViewController {
 
 extension RootViewController {
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = rows[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = rows[(indexPath as NSIndexPath).row]
         navigationController?.pushViewController(row.viewController.init(), animated: true)
     }
 
