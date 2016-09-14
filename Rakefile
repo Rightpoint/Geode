@@ -1,12 +1,12 @@
-COLORS_IN       = "Example/colors.txt"
-COLORS_OUT      = "Example/Extensions/UIColor+Appearance.swift"
-DESTINATION     = "platform=iOS Simulator,name=iPhone 6s Plus"
-EXAMPLE         = "Example.xcodeproj"
-PROJECT         = "Geode.xcodeproj"
+COLORS_IN         = "Example/colors.txt"
+COLORS_OUT        = "Example/Extensions/UIColor+Appearance.swift"
+DESTINATION       = "platform=iOS Simulator,name=iPhone 7 Plus"
+EXAMPLE           = "Example.xcodeproj"
+PROJECT           = "Geode.xcodeproj"
 FRAMEWORK_SCHEME  = "Geode"
 EXAMPLE_SCHEME    = "Example"
-SDK             = "iphonesimulator9.2"
-WORKSPACE       = "Geode.xcworkspace"
+SDK               = "iphonesimulator10.0"
+WORKSPACE         = "Geode.xcworkspace"
 
 #
 # Clean
