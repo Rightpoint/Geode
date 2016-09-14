@@ -51,17 +51,13 @@ final class LocationAnnotationView: MKAnnotationView {
         attachAnimations()
     }
 
-    // Failure to implement this method results in the following runtime error:
-    // `fatal error: use of unimplemented initializer 'init(frame:)'`
-    override init(frame: CGRect) {
-        super.init(frame: LayoutConstants.annotationFrame)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable) required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
 }
+
+// MARK: - Private
 
 private extension LocationAnnotationView {
 

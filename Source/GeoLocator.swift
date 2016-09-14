@@ -114,8 +114,14 @@ public class GeoLocator: NSObject {
     /// Handler used to log framework messages.
     public var logHandler: LogHandler?
 
+    /// Whether or not the `GeoLocator` is currently active.
+    public var isActive: Bool {
+        return active
+    }
+
     private var updateHandler: LocationUpdateHandler?
     private var active = false
+    private var waitingForAuthorization = false
 
     /**
      Initialize a `GeoLocator` instance with the given monitoring mode.
@@ -149,12 +155,30 @@ extension GeoLocator {
                           location is updated.
      */
     public func requestLocationUpdate(handler: LocationUpdateHandler?) {
-        if GeoLocator.authorizationStatus == .Yes && mode == .OneShot {
-            updateHandler = handler
+        guard mode == .OneShot else {
+            handler?(location)
+            return
+        }
+
+        let status = CLLocationManager.authorizationStatus()
+        guard status != .Restricted && status != .Denied else {
+            handler?(location)
+            return
+        }
+
+        guard !active else {
+            return
+        }
+
+        updateHandler = handler
+
+        if GeoLocator.authorizationStatus == .Yes {
+            active = true
             manager.requestLocation()
         }
         else {
-            handler?(location)
+            waitingForAuthorization = true
+            manager.requestWhenInUseAuthorization()
         }
     }
 
@@ -165,11 +189,32 @@ extension GeoLocator {
                           device's location updates.
      */
     public func startMonitoring(handler: LocationUpdateHandler?) {
-        if GeoLocator.authorizationStatus == .Yes && mode == .Continuous {
-            updateHandler = handler
-            manager.startUpdatingLocation()
-            active = true
+        guard mode == .Continuous else {
+            handler?(location)
+            return
         }
+
+        let status = CLLocationManager.authorizationStatus()
+        guard status != .Restricted && status != .Denied else {
+            handler?(location)
+            return
+        }
+
+        guard !active else {
+            return
+        }
+
+        updateHandler = handler
+
+        if GeoLocator.authorizationStatus == .Yes {
+            active = true
+            manager.startUpdatingLocation()
+        }
+        else {
+            waitingForAuthorization = true
+            manager.requestWhenInUseAuthorization()
+        }
+
     }
 
     /**
@@ -200,7 +245,7 @@ extension GeoLocator: CLLocationManagerDelegate {
         log({ "location updated: \(newLocation.coordinate)" }, level: .Verbose)
 
         let locationAge = abs(newLocation.timestamp.timeIntervalSinceNow)
-        if locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
+        if mode == .Continuous && locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
             log({ "ignoring old location" }, level: .Info)
             return
         }
@@ -210,6 +255,7 @@ extension GeoLocator: CLLocationManagerDelegate {
         switch mode {
         case .OneShot:
             updateHandler?(location)
+            active = false
             updateHandler = nil
 
         case .Continuous:
@@ -231,6 +277,12 @@ extension GeoLocator: CLLocationManagerDelegate {
                 break
             }
         }
+
+        if mode == .OneShot {
+            updateHandler?(location)
+            updateHandler = nil
+            active = false
+        }
     }
 
     // MARK: Responding to Authorization Changes
@@ -240,7 +292,8 @@ extension GeoLocator: CLLocationManagerDelegate {
 
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
-            if active {
+            if waitingForAuthorization {
+                waitingForAuthorization = false
                 switch mode {
                 case .OneShot:
                     requestLocationUpdate(updateHandler)
@@ -260,6 +313,12 @@ extension GeoLocator: CLLocationManagerDelegate {
                 latitude: kCLLocationCoordinate2DInvalid.latitude,
                 longitude: kCLLocationCoordinate2DInvalid.longitude
             )
+
+            if active || waitingForAuthorization {
+                active = false
+                waitingForAuthorization = false
+                updateHandler?(location)
+            }
 
         case .NotDetermined:
             break
