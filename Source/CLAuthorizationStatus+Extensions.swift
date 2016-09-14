@@ -35,20 +35,20 @@ extension CLAuthorizationStatus: CustomStringConvertible {
     /// A textual representation of `self`.
     public var description: String {
         switch self {
-        case .AuthorizedAlways:
-            return ".AuthorizedAlways"
+        case .authorizedAlways:
+            return ".authorizedAlways"
 
-        case .AuthorizedWhenInUse:
-            return ".AuthorizedWhenInUse"
+        case .authorizedWhenInUse:
+            return ".authorizedWhenInUse"
 
-        case .Restricted:
-            return ".Restricted"
+        case .restricted:
+            return ".restricted"
 
-        case .Denied:
-            return ".Denied"
+        case .denied:
+            return ".denied"
 
-        case .NotDetermined:
-            return ".NotDetermined"
+        case .notDetermined:
+            return ".notDetermined"
         }
     }
 

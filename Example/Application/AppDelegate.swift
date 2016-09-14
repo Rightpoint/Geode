@@ -35,12 +35,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Appearance.configureDefaultAppearance()
 
-        let rootWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let rootWindow = UIWindow(frame: UIScreen.main.bounds)
         rootWindow.rootViewController = AppearanceNavigationController(rootViewController: RootViewController())
-        rootWindow.backgroundColor = UIColor.whiteColor()
+        rootWindow.backgroundColor = UIColor.white
         rootWindow.makeKeyAndVisible()
         window = rootWindow
 

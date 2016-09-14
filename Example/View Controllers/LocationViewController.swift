@@ -36,17 +36,17 @@ class LocationViewController: UIViewController {
 
     /// Simple log handler that subclasses can use with their `GeoLocator` instance.
     static let logHandler: Geode.GeoLocator.LogHandler = { message, level, file, line in
-        debugPrint("[GEODE] \(String(level).uppercaseString) \(file) L\(line): \(message())")
+        debugPrint("[GEODE] \(String(describing: level).uppercased()) \(file) L\(line): \(message())")
     }
 
     let navBarExtension = NavBarExtension()
     let mapView = MKMapView()
 
     override func loadView() {
-        edgesForExtendedLayout = .None
+        edgesForExtendedLayout = UIRectEdge()
 
-        view = UIView(frame: UIScreen.mainScreen().bounds)
-        view.backgroundColor = UIColor.whiteColor()
+        view = UIView(frame: UIScreen.main.bounds)
+        view.backgroundColor = UIColor.white
 
         mapView.delegate = self
 
@@ -59,8 +59,8 @@ class LocationViewController: UIViewController {
     override func viewDidLoad() {
         // Hide the nav bar's hairline so that the extension view appears flush
         // beneath it.
-        navigationController?.navigationBar.translucent = false
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
 
@@ -70,10 +70,10 @@ class LocationViewController: UIViewController {
 
 extension LocationViewController: MKMapViewDelegate {
 
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKAnnotationView?
 
-        if let view = mapView.dequeueReusableAnnotationViewWithIdentifier(LocationAnnotationView.reuseIdentifier) {
+        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: LocationAnnotationView.reuseIdentifier) {
             view.annotation = annotation
             annotationView = view
         }
@@ -94,15 +94,15 @@ extension LocationViewController {
     func configureConstraints() {
         // The nav bar extension fills the width of the view and has a fixed height.
         navBarExtension.translatesAutoresizingMaskIntoConstraints = false
-        navBarExtension.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-        navBarExtension.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
-        navBarExtension.heightAnchor.constraintEqualToConstant(44.0).active = true
+        navBarExtension.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        navBarExtension.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        navBarExtension.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
 
         // The map view fills the width of the view and the remainder of its height.
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraintEqualToAnchor(navBarExtension.bottomAnchor).active = true
-        mapView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-        mapView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+        mapView.topAnchor.constraint(equalTo: navBarExtension.bottomAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
 
     func addAnnotation(forLocation location: CLLocation) {

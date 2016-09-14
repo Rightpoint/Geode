@@ -13,14 +13,14 @@ import UIKit
 
 final class OneShotViewController: LocationViewController {
 
-    private var locator = Geode.GeoLocator(mode: .OneShot)
+    fileprivate var locator = Geode.GeoLocator(mode: .oneShot)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "One-Shot"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .Refresh,
+            barButtonSystemItem: .refresh,
             target: self,
             action: #selector(OneShotViewController.refreshAction)
         )
@@ -28,10 +28,10 @@ final class OneShotViewController: LocationViewController {
         // Accept all location values.
         locator.maxLocationAge = DBL_MAX
         locator.manager.requestWhenInUseAuthorization()
-        locator.logHandler = self.dynamicType.logHandler
+        locator.logHandler = type(of: self).logHandler
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         refreshLocation()
@@ -57,7 +57,7 @@ extension OneShotViewController {
 private extension OneShotViewController {
 
     func refreshLocation() {
-        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
         spinner.startAnimating()
 
         let refreshItem = navigationItem.rightBarButtonItem

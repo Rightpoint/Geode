@@ -39,10 +39,10 @@ final class Appearance {
 
     class func configureNavBarAppearance() {
         let appearance = UINavigationBar.appearance()
-        appearance.tintColor = UIColor(named: .White)
-        appearance.barTintColor = UIColor(named: .Purple)
-        appearance.backgroundColor = UIColor(named: .Purple)
-        appearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(named: .White)]
+        appearance.tintColor = UIColor(named: .white)
+        appearance.barTintColor = UIColor(named: .purple)
+        appearance.backgroundColor = UIColor(named: .purple)
+        appearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(named: .white)]
     }
 
 }
@@ -55,11 +55,11 @@ final class AppearanceNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationBar.translucent = false
+        navigationBar.isTranslucent = false
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
 }

@@ -37,10 +37,10 @@ final class OneShotTests: XCTestCase {
         // Given
 
         // When
-        let locator = GeoLocator(mode: .OneShot)
+        let locator = GeoLocator(mode: .oneShot)
 
         // Then
-        XCTAssert(locator.mode == .OneShot, "Expected a one-shot locator!")
+        XCTAssert(locator.mode == .oneShot, "Expected a one-shot locator!")
     }
 
 }

@@ -36,45 +36,45 @@ final class NavBarExtension: UIView {
     var coordinate = kCLLocationCoordinate2DInvalid {
         didSet {
             if coordinate == kCLLocationCoordinate2DInvalid {
-                stackView.hidden = true
-                noLocationLabel.hidden = false
+                stackView.isHidden = true
+                noLocationLabel.isHidden = false
             }
             else {
                 lonLabel.text = String(format: "Lon: %.5f", coordinate.longitude)
                 latLabel.text = String(format: "Lat: %.5f", coordinate.latitude)
 
-                stackView.hidden = false
-                noLocationLabel.hidden = true
+                stackView.isHidden = false
+                noLocationLabel.isHidden = true
             }
         }
     }
 
-    private let hairline = UIView()
-    private let stackView = UIStackView()
-    private let lonLabel = UILabel()
-    private let latLabel = UILabel()
-    private let noLocationLabel = UILabel()
+    fileprivate let hairline = UIView()
+    fileprivate let stackView = UIStackView()
+    fileprivate let lonLabel = UILabel()
+    fileprivate let latLabel = UILabel()
+    fileprivate let noLocationLabel = UILabel()
 
     init() {
-        hairline.backgroundColor = UIColor(named: .Black)
+        hairline.backgroundColor = UIColor(named: .black)
 
-        stackView.axis = .Horizontal
-        stackView.alignment = .Fill
-        stackView.distribution = .FillEqually
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
 
-        lonLabel.textColor = UIColor(named: .White)
-        lonLabel.textAlignment = .Center
+        lonLabel.textColor = UIColor(named: .white)
+        lonLabel.textAlignment = .center
 
-        latLabel.textColor = UIColor(named: .White)
-        latLabel.textAlignment = .Center
+        latLabel.textColor = UIColor(named: .white)
+        latLabel.textAlignment = .center
 
         noLocationLabel.text = "Location not available"
-        noLocationLabel.textColor = UIColor(named: .White)
-        noLocationLabel.textAlignment = .Center
+        noLocationLabel.textColor = UIColor(named: .white)
+        noLocationLabel.textAlignment = .center
 
         super.init(frame: CGRect.zero)
 
-        backgroundColor = UIColor(named: .Purple)
+        backgroundColor = UIColor(named: .purple)
 
         addSubview(hairline)
         addSubview(stackView)
@@ -100,30 +100,30 @@ private extension NavBarExtension {
         // The hairline view sits at the bottom of the view, has a fixed
         // height, and fills the width of the view.
         hairline.translatesAutoresizingMaskIntoConstraints = false
-        hairline.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
-        hairline.widthAnchor.constraintEqualToAnchor(widthAnchor).active = true
-        hairline.heightAnchor.constraintEqualToConstant(1.0 / UIScreen.mainScreen().scale).active = true
+        hairline.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        hairline.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        hairline.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale).isActive = true
 
         // The stack view is pinned to the top of the view, sits above the
         // hairline, and fills the width of the view.
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraintEqualToAnchor(topAnchor).active = true
-        stackView.bottomAnchor.constraintEqualToAnchor(hairline.topAnchor).active = true
-        stackView.widthAnchor.constraintEqualToAnchor(widthAnchor).active = true
+        stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: hairline.topAnchor).isActive = true
+        stackView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
         // The longitude label is pinned to the left of the stack view.
         lonLabel.translatesAutoresizingMaskIntoConstraints = false
-        lonLabel.leftAnchor.constraintEqualToAnchor(stackView.leftAnchor).active = true
+        lonLabel.leftAnchor.constraint(equalTo: stackView.leftAnchor).isActive = true
 
         // The latitude label is pinned to the right of the stack view.
         latLabel.translatesAutoresizingMaskIntoConstraints = false
-        latLabel.rightAnchor.constraintEqualToAnchor(stackView.rightAnchor).active = true
+        latLabel.rightAnchor.constraint(equalTo: stackView.rightAnchor).isActive = true
 
         // The no location label fills the view, in the same position as the
         // stack view.
         noLocationLabel.translatesAutoresizingMaskIntoConstraints = false
-        noLocationLabel.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
-        noLocationLabel.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
+        noLocationLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        noLocationLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
 }

@@ -17,27 +17,27 @@ extension UIColor {
   enum Name {
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#000000"></span>
     /// Alpha: 100% <br/> (0x000000ff)
-    case Black
+    case black
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#057cff"></span>
     /// Alpha: 100% <br/> (0x057cffff)
-    case Blue
+    case blue
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#2a7cff"></span>
     /// Alpha: 100% <br/> (0x2a7cffff)
-    case LightBlue
+    case lightBlue
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#a162a1"></span>
     /// Alpha: 100% <br/> (0xa162a1ff)
-    case Purple
+    case purple
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
     /// Alpha: 100% <br/> (0xffffffff)
-    case White
+    case white
 
     var rgbaValue: UInt32! {
       switch self {
-      case .Black: return 0x000000ff
-      case .Blue: return 0x057cffff
-      case .LightBlue: return 0x2a7cffff
-      case .Purple: return 0xa162a1ff
-      case .White: return 0xffffffff
+      case .black: return 0x000000ff
+      case .blue: return 0x057cffff
+      case .lightBlue: return 0x2a7cffff
+      case .purple: return 0xa162a1ff
+      case .white: return 0xffffffff
       }
     }
   }

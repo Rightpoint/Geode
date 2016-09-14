@@ -35,11 +35,11 @@ final class LocationAnnotation: NSObject, MKAnnotation {
 
     var coordinate: CLLocationCoordinate2D {
         willSet {
-            willChangeValueForKey("coordinate")
+            willChangeValue(forKey: "coordinate")
         }
 
         didSet {
-            didChangeValueForKey("coordinate")
+            didChangeValue(forKey: "coordinate")
         }
     }
 
