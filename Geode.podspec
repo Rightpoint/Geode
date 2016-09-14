@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                = "Geode"
-  s.version             = "0.1.3"
+  s.version             = "1.0.0"
   s.summary             = "Location management made easy."
 
   s.description         = <<-DESC
