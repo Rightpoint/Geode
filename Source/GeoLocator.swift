@@ -39,7 +39,7 @@ open class GeoLocator: NSObject {
     public typealias LocationUpdateHandler = (CLLocation) -> Void
 
     /// A closure that logs messages.
-    public typealias LogHandler = (_ message: () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) -> Void
+    public typealias LogHandler = (_ message: @autoclosure () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) -> Void
 
     /**
      The `GeoLocator`'s mode of operation.
@@ -242,11 +242,11 @@ extension GeoLocator: CLLocationManagerDelegate {
             return
         }
 
-        log({ "location updated: \(newLocation.coordinate)" }, level: .verbose)
+        log("location updated: \(newLocation.coordinate)", level: .verbose)
 
         let locationAge = abs(newLocation.timestamp.timeIntervalSinceNow)
         if mode == .continuous && locationAge > maxLocationAge || newLocation.horizontalAccuracy < 0.0 {
-            log({ "ignoring old location" }, level: .info)
+            log("ignoring old location", level: .info)
             return
         }
 
@@ -267,10 +267,10 @@ extension GeoLocator: CLLocationManagerDelegate {
         if let code = CLError.Code(rawValue: error._code), error._domain == kCLErrorDomain {
             switch code {
             case .locationUnknown:
-                log({"Unknown location"}, level: .error)
+                log("Unknown location", level: .error)
 
             case .denied:
-                log({"User has denied location access"}, level: .error)
+                log("User has denied location access", level: .error)
                 stopMonitoring()
 
             default:
@@ -288,7 +288,7 @@ extension GeoLocator: CLLocationManagerDelegate {
     // MARK: Responding to Authorization Changes
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        log({ "authorization status changed to \(status)"}, level: .verbose)
+        log("authorization status changed to \(status)", level: .verbose)
 
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
@@ -329,7 +329,7 @@ extension GeoLocator: CLLocationManagerDelegate {
 
 private extension GeoLocator {
 
-    func log(_ message: () -> String, level: LogLevel, file: StaticString = #file, line: UInt = #line) {
+    func log(_ message: @autoclosure () -> String, level: LogLevel, file: StaticString = #file, line: UInt = #line) {
         logHandler?(message, level, file, line)
     }
 

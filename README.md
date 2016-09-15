@@ -122,7 +122,7 @@ is `nil` by default. This allows for easy integration with existing logging
 frameworks (e.g. [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)).
 
 ```swift
-public typealias LogHandler = (_ message: () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) -> Void
+public typealias LogHandler = (_ message: @autoclosure () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) -> Void
 ```
 
 The `message` parameter is passed as a closure, which allows us to potentially
@@ -130,7 +130,7 @@ avoid any unnecessary string processing if the log level is not set high enough.
 A simple logging implementation might look like the following:
 
 ```swift
-locator.logHandler = { message, level, file, line in
+locator.logHandler = { (_ message: @autoclosure () -> String, _ level: LogLevel, _ file: StaticString, _ line: UInt) in
     debugPrint("[GEODE] \(String(describing: level).uppercased()) \(file) L\(line): \(message())")
 }
 ```

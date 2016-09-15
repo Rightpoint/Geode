@@ -35,7 +35,7 @@ import UIKit
 class LocationViewController: UIViewController {
 
     /// Simple log handler that subclasses can use with their `GeoLocator` instance.
-    static let logHandler: Geode.GeoLocator.LogHandler = { message, level, file, line in
+    static let logHandler: Geode.GeoLocator.LogHandler = { (_ message: @autoclosure () -> String, _ level: GeoLocator.LogLevel, _ file: StaticString, _ line: UInt) in
         debugPrint("[GEODE] \(String(describing: level).uppercased()) \(file) L\(line): \(message())")
     }
 
