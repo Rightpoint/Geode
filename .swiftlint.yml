@@ -8,5 +8,8 @@ type_name:
   excluded:
     - No
 
+trailing_comma:
+  mandatory_comma: true
+
 excluded:
   - Carthage

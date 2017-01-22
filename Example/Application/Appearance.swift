@@ -26,9 +26,7 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 import UIKit
-
 
 /// Configure the appearance behavior for views.
 final class Appearance {
@@ -46,7 +44,6 @@ final class Appearance {
     }
 
 }
-
 
 /// `UINavigationController` subclass that sets the default appearance for
 /// the navigation and status bars.

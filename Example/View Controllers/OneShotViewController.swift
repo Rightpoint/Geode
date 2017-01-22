@@ -10,7 +10,6 @@ import Geode
 import MapKit
 import UIKit
 
-
 final class OneShotViewController: LocationViewController {
 
     fileprivate var locator = Geode.GeoLocator(mode: .oneShot)
