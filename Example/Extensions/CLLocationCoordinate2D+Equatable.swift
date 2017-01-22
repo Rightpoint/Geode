@@ -26,12 +26,9 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 import CoreLocation
 
-
 extension CLLocationCoordinate2D: Equatable {}
-
 
 /**
  Return whether two `CLLocationCoordinate2D` structs are equivalent.
@@ -44,7 +41,6 @@ extension CLLocationCoordinate2D: Equatable {}
 public func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
 }
-
 
 extension CLLocationCoordinate2D {
 

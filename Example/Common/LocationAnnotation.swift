@@ -26,9 +26,7 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 import MapKit
-
 
 /// A `LocationAnnotation` represents the device's current location.
 final class LocationAnnotation: NSObject, MKAnnotation {
